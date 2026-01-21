@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+python-jose
+passlib[bcrypt]
+huggingface_hub
+python-dotenv
+requests
+
