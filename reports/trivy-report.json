@@ -1,0 +1,678 @@
+{
+  "SchemaVersion": 2,
+  "CreatedAt": "2026-01-25T15:52:48.068900343-05:00",
+  "ArtifactName": "llm-api",
+  "ArtifactType": "container_image",
+  "Metadata": {
+    "Size": 1130603520,
+    "OS": {
+      "Family": "debian",
+      "Name": "13.3"
+    },
+    "ImageID": "sha256:b75da64498dd842d5c661b595f57dab18b538a051c7023d71b52a396364c9280",
+    "DiffIDs": [
+      "sha256:e50a58335e1366e2581fe61794c1651afe2fe04e881e795aa166f24f4fc78d92",
+      "sha256:523062ea36b5189e9ea6d7d86850296d1d7b5b4418109217e7ac12e13273fbba",
+      "sha256:5d89b1d5fc98cb4fa0c3a8ac89cf83932b8b287e318b7761badd4b9ce58b3ecb",
+      "sha256:49d74831a2871d1733e397932626f721303aef93edc180602b0877d68c6cbf5a",
+      "sha256:a3b1faeb18c22121a48d8b9726f35b1a81a76792aee2250c6a5f30cc171b8fe5",
+      "sha256:3a6dde79819fcee2455e6aef2f4943ed73b4233dbe4596badb66bc4c8528f9ac",
+      "sha256:07352e3423cd32b9c1ff30e20a7a63e054e2d3f40307617c68bf7d82efd20787",
+      "sha256:3e633a2218aa5a57d4f65d1fa8f6f151917b6b8ef1db019411d9ea19b7a58757"
+    ],
+    "RepoTags": [
+      "llm-api:latest"
+    ],
+    "ImageConfig": {
+      "architecture": "amd64",
+      "created": "2026-01-25T14:22:45.331432223-05:00",
+      "history": [
+        {
+          "created": "2026-01-12T00:00:00Z",
+          "created_by": "# debian.sh --arch 'amd64' out/ 'trixie' '@1768176000'",
+          "comment": "debuerreotype 0.17"
+        },
+        {
+          "created": "2026-01-13T03:06:57Z",
+          "created_by": "ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-01-13T03:06:57Z",
+          "created_by": "ENV LANG=C.UTF-8",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-01-13T03:06:57Z",
+          "created_by": "RUN /bin/sh -c set -eux; \tapt-get update; \tapt-get install -y --no-install-recommends \t\tca-certificates \t\tnetbase \t\ttzdata \t; \tapt-get dist-clean # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-01-13T03:06:57Z",
+          "created_by": "ENV GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-01-13T03:06:57Z",
+          "created_by": "ENV PYTHON_VERSION=3.11.14",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-01-13T03:06:57Z",
+          "created_by": "ENV PYTHON_SHA256=8d3ed8ec5c88c1c95f5e558612a725450d2452813ddad5e58fdb1a53b1209b78",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-01-13T03:14:21Z",
+          "created_by": "RUN /bin/sh -c set -eux; \t\tsavedAptMark=\"$(apt-mark showmanual)\"; \tapt-get update; \tapt-get install -y --no-install-recommends \t\tdpkg-dev \t\tgcc \t\tgnupg \t\tlibbluetooth-dev \t\tlibbz2-dev \t\tlibc6-dev \t\tlibdb-dev \t\tlibffi-dev \t\tlibgdbm-dev \t\tliblzma-dev \t\tlibncursesw5-dev \t\tlibreadline-dev \t\tlibsqlite3-dev \t\tlibssl-dev \t\tmake \t\ttk-dev \t\tuuid-dev \t\twget \t\txz-utils \t\tzlib1g-dev \t; \t\twget -O python.tar.xz \"https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz\"; \techo \"$PYTHON_SHA256 *python.tar.xz\" | sha256sum -c -; \twget -O python.tar.xz.asc \"https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc\"; \tGNUPGHOME=\"$(mktemp -d)\"; export GNUPGHOME; \tgpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$GPG_KEY\"; \tgpg --batch --verify python.tar.xz.asc python.tar.xz; \tgpgconf --kill all; \trm -rf \"$GNUPGHOME\" python.tar.xz.asc; \tmkdir -p /usr/src/python; \ttar --extract --directory /usr/src/python --strip-components=1 --file python.tar.xz; \trm python.tar.xz; \t\tcd /usr/src/python; \tgnuArch=\"$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)\"; \t./configure \t\t--build=\"$gnuArch\" \t\t--enable-loadable-sqlite-extensions \t\t--enable-optimizations \t\t--enable-option-checking=fatal \t\t--enable-shared \t\t$(test \"${gnuArch%%-*}\" != 'riscv64' \u0026\u0026 echo '--with-lto') \t\t--with-ensurepip \t; \tnproc=\"$(nproc)\"; \tEXTRA_CFLAGS=\"$(dpkg-buildflags --get CFLAGS)\"; \tLDFLAGS=\"$(dpkg-buildflags --get LDFLAGS)\"; \tLDFLAGS=\"${LDFLAGS:--Wl},--strip-all\"; \tmake -j \"$nproc\" \t\t\"EXTRA_CFLAGS=${EXTRA_CFLAGS:-}\" \t\t\"LDFLAGS=${LDFLAGS:-}\" \t; \trm python; \tmake -j \"$nproc\" \t\t\"EXTRA_CFLAGS=${EXTRA_CFLAGS:-}\" \t\t\"LDFLAGS=${LDFLAGS:--Wl},-rpath='\\$\\$ORIGIN/../lib'\" \t\tpython \t; \tmake install; \t\tcd /; \trm -rf /usr/src/python; \t\tfind /usr/local -depth \t\t\\( \t\t\t\\( -type d -a \\( -name test -o -name tests -o -name idle_test \\) \\) \t\t\t-o \\( -type f -a \\( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \\) \\) \t\t\\) -exec rm -rf '{}' + \t; \t\tldconfig; \t\tapt-mark auto '.*' \u003e /dev/null; \tapt-mark manual $savedAptMark; \tfind /usr/local -type f -executable -not \\( -name '*tkinter*' \\) -exec ldd '{}' ';' \t\t| awk '/=\u003e/ { so = $(NF-1); if (index(so, \"/usr/local/\") == 1) { next }; gsub(\"^/(usr/)?\", \"\", so); printf \"*%s\\n\", so }' \t\t| sort -u \t\t| xargs -rt dpkg-query --search \t\t| awk 'sub(\":$\", \"\", $1) { print $1 }' \t\t| sort -u \t\t| xargs -r apt-mark manual \t; \tapt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \tapt-get dist-clean; \t\texport PYTHONDONTWRITEBYTECODE=1; \tpython3 --version; \t\tpip3 install \t\t--disable-pip-version-check \t\t--no-cache-dir \t\t--no-compile \t\t'setuptools==79.0.1' \t\t'wheel\u003c0.46' \t; \tpip3 --version # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-01-13T03:14:21Z",
+          "created_by": "RUN /bin/sh -c set -eux; \tfor src in idle3 pip3 pydoc3 python3 python3-config; do \t\tdst=\"$(echo \"$src\" | tr -d 3)\"; \t\t[ -s \"/usr/local/bin/$src\" ]; \t\t[ ! -e \"/usr/local/bin/$dst\" ]; \t\tln -svT \"$src\" \"/usr/local/bin/$dst\"; \tdone # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-01-13T03:14:21Z",
+          "created_by": "CMD [\"python3\"]",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-01-25T17:40:31Z",
+          "created_by": "WORKDIR /app",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-01-25T17:41:18Z",
+          "created_by": "COPY app/requirements.txt /app/requirements.txt # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-01-25T17:41:48Z",
+          "created_by": "RUN /bin/sh -c pip install --no-cache-dir -r requirements.txt # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-01-25T19:22:45Z",
+          "created_by": "COPY app /app # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-01-25T19:22:45Z",
+          "created_by": "EXPOSE map[8000/tcp:{}]",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-01-25T19:22:45Z",
+          "created_by": "CMD [\"python\" \"-m\" \"uvicorn\" \"api:app\" \"--host\" \"0.0.0.0\" \"--port\" \"8000\"]",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-01-25T19:22:45Z",
+          "created_by": "HEALTHCHECK \u0026{[\"CMD-SHELL\" \"curl -f http://localhost:8000/health || exit 1\"] \"10s\" \"3s\" \"0s\" \"0s\" '\\x05'}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        }
+      ],
+      "os": "linux",
+      "rootfs": {
+        "type": "layers",
+        "diff_ids": [
+          "sha256:e50a58335e1366e2581fe61794c1651afe2fe04e881e795aa166f24f4fc78d92",
+          "sha256:523062ea36b5189e9ea6d7d86850296d1d7b5b4418109217e7ac12e13273fbba",
+          "sha256:5d89b1d5fc98cb4fa0c3a8ac89cf83932b8b287e318b7761badd4b9ce58b3ecb",
+          "sha256:49d74831a2871d1733e397932626f721303aef93edc180602b0877d68c6cbf5a",
+          "sha256:a3b1faeb18c22121a48d8b9726f35b1a81a76792aee2250c6a5f30cc171b8fe5",
+          "sha256:3a6dde79819fcee2455e6aef2f4943ed73b4233dbe4596badb66bc4c8528f9ac",
+          "sha256:07352e3423cd32b9c1ff30e20a7a63e054e2d3f40307617c68bf7d82efd20787",
+          "sha256:3e633a2218aa5a57d4f65d1fa8f6f151917b6b8ef1db019411d9ea19b7a58757"
+        ]
+      },
+      "config": {
+        "Cmd": [
+          "python",
+          "-m",
+          "uvicorn",
+          "api:app",
+          "--host",
+          "0.0.0.0",
+          "--port",
+          "8000"
+        ],
+        "Healthcheck": {
+          "Test": [
+            "CMD-SHELL",
+            "curl -f http://localhost:8000/health || exit 1"
+          ],
+          "Interval": 10000000000,
+          "Timeout": 3000000000,
+          "Retries": 5
+        },
+        "Env": [
+          "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "LANG=C.UTF-8",
+          "GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D",
+          "PYTHON_VERSION=3.11.14",
+          "PYTHON_SHA256=8d3ed8ec5c88c1c95f5e558612a725450d2452813ddad5e58fdb1a53b1209b78"
+        ],
+        "WorkingDir": "/app",
+        "ExposedPorts": {
+          "8000/tcp": {}
+        },
+        "ArgsEscaped": true
+      }
+    },
+    "Layers": [
+      {
+        "Size": 81039360,
+        "DiffID": "sha256:e50a58335e1366e2581fe61794c1651afe2fe04e881e795aa166f24f4fc78d92"
+      },
+      {
+        "Size": 4123136,
+        "DiffID": "sha256:523062ea36b5189e9ea6d7d86850296d1d7b5b4418109217e7ac12e13273fbba"
+      },
+      {
+        "Size": 43832832,
+        "DiffID": "sha256:5d89b1d5fc98cb4fa0c3a8ac89cf83932b8b287e318b7761badd4b9ce58b3ecb"
+      },
+      {
+        "Size": 5120,
+        "DiffID": "sha256:49d74831a2871d1733e397932626f721303aef93edc180602b0877d68c6cbf5a"
+      },
+      {
+        "Size": 1536,
+        "DiffID": "sha256:a3b1faeb18c22121a48d8b9726f35b1a81a76792aee2250c6a5f30cc171b8fe5"
+      },
+      {
+        "Size": 2560,
+        "DiffID": "sha256:3a6dde79819fcee2455e6aef2f4943ed73b4233dbe4596badb66bc4c8528f9ac"
+      },
+      {
+        "Size": 58544128,
+        "DiffID": "sha256:07352e3423cd32b9c1ff30e20a7a63e054e2d3f40307617c68bf7d82efd20787"
+      },
+      {
+        "Size": 943054848,
+        "DiffID": "sha256:3e633a2218aa5a57d4f65d1fa8f6f151917b6b8ef1db019411d9ea19b7a58757"
+      }
+    ]
+  },
+  "Results": [
+    {
+      "Target": "llm-api (debian 13.3)",
+      "Class": "os-pkgs",
+      "Type": "debian",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2026-0861",
+          "PkgID": "libc-bin@2.41-12+deb13u1",
+          "PkgName": "libc-bin",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/debian/libc-bin@2.41-12%2Bdeb13u1?arch=amd64\u0026distro=debian-13.3",
+            "UID": "7a2855ad102371a8"
+          },
+          "InstalledVersion": "2.41-12+deb13u1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:e50a58335e1366e2581fe61794c1651afe2fe04e881e795aa166f24f4fc78d92"
+          },
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-0861",
+          "DataSource": {
+            "ID": "debian",
+            "Name": "Debian Security Tracker",
+            "URL": "https://salsa.debian.org/security-tracker-team/security-tracker"
+          },
+          "Title": "glibc: Integer overflow in memalign leads to heap corruption",
+          "Description": "Passing too large an alignment to the memalign suite of functions (memalign, posix_memalign, aligned_alloc) in the GNU C Library version 2.30 to 2.42 may result in an integer overflow, which could consequently result in a heap corruption.\n\nNote that the attacker must have control over both, the size as well as the alignment arguments of the memalign function to be able to exploit this.  The size parameter must be close enough to PTRDIFF_MAX so as to overflow size_t along with the large alignment argument.  This limits the malicious inputs for the alignment for memalign to the range [1\u003c\u003c62+ 1, 1\u003c\u003c63] and exactly 1\u003c\u003c63 for posix_memalign and aligned_alloc.\n\nTypically the alignment argument passed to such functions is a known constrained quantity (e.g. page size, block size, struct sizes) and is not attacker controlled, because of which this may not be easily exploitable in practice.  An application bug could potentially result in the input alignment being too large, e.g. due to a different buffer overflow or integer overflow in the application or its dependent libraries, but that is again an uncommon usage pattern given typical sources of alignments.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-190"
+          ],
+          "VendorSeverity": {
+            "redhat": 1,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 8.1
+            }
+          },
+          "References": [
+            "http://www.openwall.com/lists/oss-security/2026/01/16/5",
+            "https://access.redhat.com/security/cve/CVE-2026-0861",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-0861",
+            "https://sourceware.org/bugzilla/show_bug.cgi?id=33796",
+            "https://sourceware.org/git/?p=glibc.git;a=blob_plain;f=advisories/GLIBC-SA-2026-0001",
+            "https://www.cve.org/CVERecord?id=CVE-2026-0861"
+          ],
+          "PublishedDate": "2026-01-14T21:15:52.617Z",
+          "LastModifiedDate": "2026-01-16T18:16:09.343Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2026-0861",
+          "PkgID": "libc6@2.41-12+deb13u1",
+          "PkgName": "libc6",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/debian/libc6@2.41-12%2Bdeb13u1?arch=amd64\u0026distro=debian-13.3",
+            "UID": "7bdabb7e1bdbcd9b"
+          },
+          "InstalledVersion": "2.41-12+deb13u1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:e50a58335e1366e2581fe61794c1651afe2fe04e881e795aa166f24f4fc78d92"
+          },
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-0861",
+          "DataSource": {
+            "ID": "debian",
+            "Name": "Debian Security Tracker",
+            "URL": "https://salsa.debian.org/security-tracker-team/security-tracker"
+          },
+          "Title": "glibc: Integer overflow in memalign leads to heap corruption",
+          "Description": "Passing too large an alignment to the memalign suite of functions (memalign, posix_memalign, aligned_alloc) in the GNU C Library version 2.30 to 2.42 may result in an integer overflow, which could consequently result in a heap corruption.\n\nNote that the attacker must have control over both, the size as well as the alignment arguments of the memalign function to be able to exploit this.  The size parameter must be close enough to PTRDIFF_MAX so as to overflow size_t along with the large alignment argument.  This limits the malicious inputs for the alignment for memalign to the range [1\u003c\u003c62+ 1, 1\u003c\u003c63] and exactly 1\u003c\u003c63 for posix_memalign and aligned_alloc.\n\nTypically the alignment argument passed to such functions is a known constrained quantity (e.g. page size, block size, struct sizes) and is not attacker controlled, because of which this may not be easily exploitable in practice.  An application bug could potentially result in the input alignment being too large, e.g. due to a different buffer overflow or integer overflow in the application or its dependent libraries, but that is again an uncommon usage pattern given typical sources of alignments.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-190"
+          ],
+          "VendorSeverity": {
+            "redhat": 1,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 8.1
+            }
+          },
+          "References": [
+            "http://www.openwall.com/lists/oss-security/2026/01/16/5",
+            "https://access.redhat.com/security/cve/CVE-2026-0861",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-0861",
+            "https://sourceware.org/bugzilla/show_bug.cgi?id=33796",
+            "https://sourceware.org/git/?p=glibc.git;a=blob_plain;f=advisories/GLIBC-SA-2026-0001",
+            "https://www.cve.org/CVERecord?id=CVE-2026-0861"
+          ],
+          "PublishedDate": "2026-01-14T21:15:52.617Z",
+          "LastModifiedDate": "2026-01-16T18:16:09.343Z"
+        }
+      ]
+    },
+    {
+      "Target": "Python",
+      "Class": "lang-pkgs",
+      "Type": "python-pkg",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2024-23342",
+          "PkgName": "ecdsa",
+          "PkgPath": "app/venv/lib/python3.13/site-packages/ecdsa-0.19.1.dist-info/METADATA",
+          "PkgIdentifier": {
+            "PURL": "pkg:pypi/ecdsa@0.19.1",
+            "UID": "f365398289fb3c91"
+          },
+          "InstalledVersion": "0.19.1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3e633a2218aa5a57d4f65d1fa8f6f151917b6b8ef1db019411d9ea19b7a58757"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-23342",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory pip",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+          },
+          "Title": "python-ecdsa: vulnerable to the Minerva attack",
+          "Description": "The `ecdsa` PyPI package is a pure Python implementation of ECC (Elliptic Curve Cryptography) with support for ECDSA (Elliptic Curve Digital Signature Algorithm), EdDSA (Edwards-curve Digital Signature Algorithm) and ECDH (Elliptic Curve Diffie-Hellman). Versions 0.18.0 and prior are vulnerable to the Minerva attack. As of time of publication, no known patched version exists.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-203",
+            "CWE-208",
+            "CWE-385"
+          ],
+          "VendorSeverity": {
+            "ghsa": 3,
+            "nvd": 3,
+            "redhat": 2
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 7.4
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 7.4
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 7.4
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2024-23342",
+            "https://github.com/tlsfuzzer/python-ecdsa",
+            "https://github.com/tlsfuzzer/python-ecdsa/blob/master/SECURITY.md",
+            "https://github.com/tlsfuzzer/python-ecdsa/security/advisories/GHSA-wj6h-64fc-37mp",
+            "https://minerva.crocs.fi.muni.cz",
+            "https://minerva.crocs.fi.muni.cz/",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-23342",
+            "https://securitypitfalls.wordpress.com/2018/08/03/constant-time-compare-in-python",
+            "https://securitypitfalls.wordpress.com/2018/08/03/constant-time-compare-in-python/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-23342"
+          ],
+          "PublishedDate": "2024-01-23T00:15:26.397Z",
+          "LastModifiedDate": "2025-08-26T21:33:47.87Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-23342",
+          "PkgName": "ecdsa",
+          "PkgPath": "usr/local/lib/python3.11/site-packages/ecdsa-0.19.1.dist-info/METADATA",
+          "PkgIdentifier": {
+            "PURL": "pkg:pypi/ecdsa@0.19.1",
+            "UID": "79bcee651dfe427b"
+          },
+          "InstalledVersion": "0.19.1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:07352e3423cd32b9c1ff30e20a7a63e054e2d3f40307617c68bf7d82efd20787"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-23342",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory pip",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+          },
+          "Title": "python-ecdsa: vulnerable to the Minerva attack",
+          "Description": "The `ecdsa` PyPI package is a pure Python implementation of ECC (Elliptic Curve Cryptography) with support for ECDSA (Elliptic Curve Digital Signature Algorithm), EdDSA (Edwards-curve Digital Signature Algorithm) and ECDH (Elliptic Curve Diffie-Hellman). Versions 0.18.0 and prior are vulnerable to the Minerva attack. As of time of publication, no known patched version exists.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-203",
+            "CWE-208",
+            "CWE-385"
+          ],
+          "VendorSeverity": {
+            "ghsa": 3,
+            "nvd": 3,
+            "redhat": 2
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 7.4
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 7.4
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 7.4
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2024-23342",
+            "https://github.com/tlsfuzzer/python-ecdsa",
+            "https://github.com/tlsfuzzer/python-ecdsa/blob/master/SECURITY.md",
+            "https://github.com/tlsfuzzer/python-ecdsa/security/advisories/GHSA-wj6h-64fc-37mp",
+            "https://minerva.crocs.fi.muni.cz",
+            "https://minerva.crocs.fi.muni.cz/",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-23342",
+            "https://securitypitfalls.wordpress.com/2018/08/03/constant-time-compare-in-python",
+            "https://securitypitfalls.wordpress.com/2018/08/03/constant-time-compare-in-python/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-23342"
+          ],
+          "PublishedDate": "2024-01-23T00:15:26.397Z",
+          "LastModifiedDate": "2025-08-26T21:33:47.87Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2026-23949",
+          "PkgName": "jaraco.context",
+          "PkgPath": "usr/local/lib/python3.11/site-packages/setuptools/_vendor/jaraco.context-5.3.0.dist-info/METADATA",
+          "PkgIdentifier": {
+            "PURL": "pkg:pypi/jaraco.context@5.3.0",
+            "UID": "f7ada31fec6eb6e1"
+          },
+          "InstalledVersion": "5.3.0",
+          "FixedVersion": "6.1.0",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:5d89b1d5fc98cb4fa0c3a8ac89cf83932b8b287e318b7761badd4b9ce58b3ecb"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-23949",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory pip",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+          },
+          "Title": "jaraco.context: jaraco.context: Path traversal via malicious tar archives",
+          "Description": "jaraco.context, an open-source software package that provides some useful decorators and context managers, has a Zip Slip path traversal vulnerability in the `jaraco.context.tarball()` function starting in version 5.2.0 and prior to version 6.1.0. The vulnerability may allow attackers to extract files outside the intended extraction directory when malicious tar archives are processed. The strip_first_component filter splits the path on the first `/` and extracts the second component, while allowing `../` sequences. Paths like `dummy_dir/../../etc/passwd` become `../../etc/passwd`. Note that this suffers from a nested tarball attack as well with multi-level tar files such as `dummy_dir/inner.tar.gz`, where the inner.tar.gz includes a traversal `dummy_dir/../../config/.env` that also gets translated to `../../config/.env`. Version 6.1.0 contains a patch for the issue.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-22"
+          ],
+          "VendorSeverity": {
+            "ghsa": 3,
+            "redhat": 3
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N",
+              "V3Score": 8.6
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N",
+              "V3Score": 8.6
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2026-23949",
+            "https://github.com/jaraco/jaraco.context",
+            "https://github.com/jaraco/jaraco.context/blob/main/jaraco/context/__init__.py#L74-L91",
+            "https://github.com/jaraco/jaraco.context/commit/7b26a42b525735e4085d2e994e13802ea339d5f9",
+            "https://github.com/jaraco/jaraco.context/security/advisories/GHSA-58pv-8j8x-9vj2",
+            "https://github.com/pypa/setuptools/blob/main/setuptools/_vendor/jaraco/context.py#L55-L76",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-23949",
+            "https://www.cve.org/CVERecord?id=CVE-2026-23949"
+          ],
+          "PublishedDate": "2026-01-20T01:15:57.723Z",
+          "LastModifiedDate": "2026-01-20T01:15:57.723Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-47273",
+          "PkgName": "setuptools",
+          "PkgPath": "app/venv/lib/python3.13/site-packages/setuptools-70.2.0.dist-info/METADATA",
+          "PkgIdentifier": {
+            "PURL": "pkg:pypi/setuptools@70.2.0",
+            "UID": "c678c9538dd670c0"
+          },
+          "InstalledVersion": "70.2.0",
+          "FixedVersion": "78.1.1",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:3e633a2218aa5a57d4f65d1fa8f6f151917b6b8ef1db019411d9ea19b7a58757"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-47273",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory pip",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+          },
+          "Title": "setuptools: Path Traversal Vulnerability in setuptools PackageIndex",
+          "Description": "setuptools is a package that allows users to download, build, install, upgrade, and uninstall Python packages. A path traversal vulnerability in `PackageIndex` is present in setuptools prior to version 78.1.1. An attacker would be allowed to write files to arbitrary locations on the filesystem with the permissions of the process running the Python code, which could escalate to remote code execution depending on the context. Version 78.1.1 fixes the issue.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-22"
+          ],
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 3,
+            "azure": 3,
+            "bitnami": 3,
+            "ghsa": 3,
+            "nvd": 3,
+            "oracle-oval": 2,
+            "photon": 3,
+            "redhat": 2,
+            "rocky": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 8.8
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:L",
+              "V3Score": 7.1
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2025:13578",
+            "https://access.redhat.com/security/cve/CVE-2025-47273",
+            "https://bugzilla.redhat.com/2366982",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2366982",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-47273",
+            "https://errata.almalinux.org/9/ALSA-2025-13578.html",
+            "https://errata.rockylinux.org/RLSA-2025:10407",
+            "https://github.com/pypa/advisory-database/tree/main/vulns/setuptools/PYSEC-2025-49.yaml",
+            "https://github.com/pypa/setuptools",
+            "https://github.com/pypa/setuptools/blob/6ead555c5fb29bc57fe6105b1bffc163f56fd558/setuptools/package_index.py#L810C1-L825C88",
+            "https://github.com/pypa/setuptools/commit/250a6d17978f9f6ac3ac887091f2d32886fbbb0b",
+            "https://github.com/pypa/setuptools/issues/4946",
+            "https://github.com/pypa/setuptools/security/advisories/GHSA-5rjg-fvgr-3xxf",
+            "https://linux.oracle.com/cve/CVE-2025-47273.html",
+            "https://linux.oracle.com/errata/ELSA-2025-9940.html",
+            "https://lists.debian.org/debian-lts-announce/2025/05/msg00035.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-47273",
+            "https://ubuntu.com/security/notices/USN-7544-1",
+            "https://www.cve.org/CVERecord?id=CVE-2025-47273"
+          ],
+          "PublishedDate": "2025-05-17T16:15:19.11Z",
+          "LastModifiedDate": "2025-06-12T16:29:01.66Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2026-24049",
+          "PkgName": "wheel",
+          "PkgPath": "usr/local/lib/python3.11/site-packages/setuptools/_vendor/wheel-0.45.1.dist-info/METADATA",
+          "PkgIdentifier": {
+            "PURL": "pkg:pypi/wheel@0.45.1",
+            "UID": "b90c17bff082400"
+          },
+          "InstalledVersion": "0.45.1",
+          "FixedVersion": "0.46.2",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:5d89b1d5fc98cb4fa0c3a8ac89cf83932b8b287e318b7761badd4b9ce58b3ecb"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-24049",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory pip",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+          },
+          "Title": "wheel: wheel: Privilege Escalation or Arbitrary Code Execution via malicious wheel file unpacking",
+          "Description": "wheel is a command line tool for manipulating Python wheel files, as defined in PEP 427. In versions 0.40.0 through 0.46.1, the unpack function is vulnerable to file permission modification through mishandling of file permissions after extraction. The logic blindly trusts the filename from the archive header for the chmod operation, even though the extraction process itself might have sanitized the path. Attackers can craft a malicious wheel file that, when unpacked, changes the permissions of critical system files (e.g., /etc/passwd, SSH keys, config files), allowing for Privilege Escalation or arbitrary code execution by modifying now-writable scripts. This issue has been fixed in version 0.46.2.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-22",
+            "CWE-732"
+          ],
+          "VendorSeverity": {
+            "ghsa": 3,
+            "redhat": 3
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:H",
+              "V3Score": 7.1
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:H",
+              "V3Score": 7.1
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2026-24049",
+            "https://github.com/pypa/wheel",
+            "https://github.com/pypa/wheel/commit/7a7d2de96b22a9adf9208afcc9547e1001569fef",
+            "https://github.com/pypa/wheel/commit/934fe177ff912c8e03d5ae951d3805e1fd90ba5e",
+            "https://github.com/pypa/wheel/releases/tag/0.46.2",
+            "https://github.com/pypa/wheel/security/advisories/GHSA-8rrh-rw8j-w5fx",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-24049",
+            "https://www.cve.org/CVERecord?id=CVE-2026-24049"
+          ],
+          "PublishedDate": "2026-01-22T05:16:23.157Z",
+          "LastModifiedDate": "2026-01-23T18:16:04.037Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2026-24049",
+          "PkgName": "wheel",
+          "PkgPath": "usr/local/lib/python3.11/site-packages/wheel-0.45.1.dist-info/METADATA",
+          "PkgIdentifier": {
+            "PURL": "pkg:pypi/wheel@0.45.1",
+            "UID": "ad0c7b655481c4c"
+          },
+          "InstalledVersion": "0.45.1",
+          "FixedVersion": "0.46.2",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:5d89b1d5fc98cb4fa0c3a8ac89cf83932b8b287e318b7761badd4b9ce58b3ecb"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-24049",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory pip",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Apip"
+          },
+          "Title": "wheel: wheel: Privilege Escalation or Arbitrary Code Execution via malicious wheel file unpacking",
+          "Description": "wheel is a command line tool for manipulating Python wheel files, as defined in PEP 427. In versions 0.40.0 through 0.46.1, the unpack function is vulnerable to file permission modification through mishandling of file permissions after extraction. The logic blindly trusts the filename from the archive header for the chmod operation, even though the extraction process itself might have sanitized the path. Attackers can craft a malicious wheel file that, when unpacked, changes the permissions of critical system files (e.g., /etc/passwd, SSH keys, config files), allowing for Privilege Escalation or arbitrary code execution by modifying now-writable scripts. This issue has been fixed in version 0.46.2.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-22",
+            "CWE-732"
+          ],
+          "VendorSeverity": {
+            "ghsa": 3,
+            "redhat": 3
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:H",
+              "V3Score": 7.1
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:H",
+              "V3Score": 7.1
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2026-24049",
+            "https://github.com/pypa/wheel",
+            "https://github.com/pypa/wheel/commit/7a7d2de96b22a9adf9208afcc9547e1001569fef",
+            "https://github.com/pypa/wheel/commit/934fe177ff912c8e03d5ae951d3805e1fd90ba5e",
+            "https://github.com/pypa/wheel/releases/tag/0.46.2",
+            "https://github.com/pypa/wheel/security/advisories/GHSA-8rrh-rw8j-w5fx",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-24049",
+            "https://www.cve.org/CVERecord?id=CVE-2026-24049"
+          ],
+          "PublishedDate": "2026-01-22T05:16:23.157Z",
+          "LastModifiedDate": "2026-01-23T18:16:04.037Z"
+        }
+      ]
+    }
+  ]
+}

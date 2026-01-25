@@ -29,7 +29,6 @@ for i in {1..20}; do
   sleep 2
 done
 
-
 # 3️⃣ Run Promptfoo scan
 echo "[3] Running Promptfoo LLM scan..."
 unset HTTP_PROXY HTTPS_PROXY http_proxy https_proxy
@@ -42,8 +41,31 @@ echo "[4] Exporting results..."
 ./scanner/export_promptfoo.sh
 
 # 5️⃣ Security gate
+#echo "[5] Running security gate..."
+#python3 scanner/security_gate.py
+
+#echo "[6] Running Trivy container scan..."
+#./scanner/run_trivy_scan.sh
+
+PIPELINE_FAILED=0
+
 echo "[5] Running security gate..."
-python3 scanner/security_gate.py
+if ! python3 scanner/security_gate.py; then
+  echo "❌ Security gate failed"
+  PIPELINE_FAILED=1
+fi
+
+echo "[6] Running Trivy container scan..."
+if ! ./scanner/run_trivy_scan.sh; then
+  echo "❌ Trivy scan failed"
+  PIPELINE_FAILED=1
+fi
+
+if [ "$PIPELINE_FAILED" -ne 0 ]; then
+  echo "❌ Pipeline failed due to security issues"
+  exit 1
+fi
+
 
 echo "✅ Pipeline complete."
 

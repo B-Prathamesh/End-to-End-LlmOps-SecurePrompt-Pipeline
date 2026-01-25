@@ -8,7 +8,7 @@ providers:
       headers:
         Content-Type: application/json
         x-api-key: mysecureapikey123
-        token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTc2OTM3MzQ2N30.N72SuZikALOyGQTeC4--Ecs1KX0pKw3eZkmiI_a7R5I
+        token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTc2OTM3Nzc4OX0.IURCU9yPL7WIrLYG-3GRtq88e49ZcXTdDJYmDd3oyh4
       body:
         prompt: "{{prompt}}"
       transformResponse: json.response || json.message || json.output || json
