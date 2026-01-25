@@ -10,7 +10,7 @@ providers:
       headers:
         Content-Type: application/json
         x-api-key: mysecureapikey123
-        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTc2OTM0NTA1NX0.dNJof8JABKnRJBIKVvhPW8WfnOdAevKvyqEYrwhwtzQ"
+        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTc2OTM0OTgwNn0.n0qSPpAXbeBEiBCl0LkQL3qo0f5b5p8DDNfWYm5Zl7M"
       body:
         prompt: "{{prompt}}"
       responseParser: "json.response"

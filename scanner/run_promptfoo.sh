@@ -9,5 +9,8 @@ npx promptfoo eval \
   -c ./promptfooconfig.yaml \
   --no-cache
 
-echo "✅ Promptfoo scan complete"
+./scanner/export_promptfoo.sh
+python3 ./scanner/security_gate.py
+
+echo "✅ Security scan complete"
 
