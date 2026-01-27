@@ -4,12 +4,12 @@ from auth import verify_api_key, verify_jwt, create_jwt
 import os
 from dotenv import load_dotenv
 import sys
-sys.path.append("../scanner")
+sys.path.append("/app/scanner")  # ✅ FIX: correct path inside Docker
 
 from scanner_runner import run_security_scan
 
 
-load_dotenv()  # ✅ allow env vars from Docker / GitHub Actions
+load_dotenv()  # allow env vars from Docker / GitHub Actions
 
 APP_API_KEY = os.getenv("APP_API_KEY")
 JWT_SECRET = os.getenv("JWT_SECRET")
