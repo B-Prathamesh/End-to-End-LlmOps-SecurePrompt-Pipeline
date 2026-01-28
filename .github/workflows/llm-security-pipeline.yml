@@ -1,17 +1,6 @@
 name: LLM Security Pipeline
 
-env:
-  HF_TOKEN: ${{ secrets.HF_TOKEN }}
-  JWT_SECRET: ${{ secrets.JWT_SECRET }}
-  APP_API_KEY: ${{ secrets.APP_API_KEY }}
-  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
-
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
@@ -37,13 +26,12 @@ jobs:
 
       - name: Install Trivy
         run: |
-              sudo apt-get update
-              sudo apt-get install -y wget
-              wget https://github.com/aquasecurity/trivy/releases/download/v0.68.2/trivy_0.68.2_Linux-64bit.deb
-              sudo dpkg -i trivy_0.68.2_Linux-64bit.deb
+          sudo apt-get update
+          sudo apt-get install -y wget
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.68.2/trivy_0.68.2_Linux-64bit.deb
+          sudo dpkg -i trivy_0.68.2_Linux-64bit.deb
+          trivy --version
 
-              trivy --version
-      
       - name: Build LLM API image
         run: |
           docker build -t llm-api -f docker/Dockerfile .
@@ -51,12 +39,11 @@ jobs:
       - name: Make scripts executable
         run: |
           chmod +x scanner/run_security_pipeline.sh
-          chmod +x scanner/run_promptfoo.sh
-          chmod +x scanner/export_promptfoo.sh
+          chmod +x scanner/run_promptfoo_and_export.sh
           chmod +x scanner/run_trivy_scan.sh
           chmod +x scanner/notify_slack.sh
 
-      # 🔥 THIS IS THE MISSING PIECE
+      # 🔐 Run full LLM security pipeline (Promptfoo + Trivy + Gates)
       - name: Run full LLM Security Pipeline
         run: |
           ./scanner/run_security_pipeline.sh
@@ -67,4 +54,3 @@ jobs:
         with:
           name: security-reports
           path: reports/
-
