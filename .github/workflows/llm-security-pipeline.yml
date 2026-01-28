@@ -34,6 +34,14 @@ jobs:
       - name: Install Promptfoo
         run: npm install -g promptfoo
 
+      - name: Install Trivy
+        run: |
+              sudo apt-get update
+              sudo apt-get install -y wget
+              wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.49.1_Linux-64bit.deb
+              sudo dpkg -i trivy_0.49.1_Linux-64bit.deb
+              trivy --version
+      
       - name: Build LLM API image
         run: |
           docker build -t llm-api -f docker/Dockerfile .
