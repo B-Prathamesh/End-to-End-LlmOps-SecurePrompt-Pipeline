@@ -1,47 +1,18 @@
 #!/bin/bash
 set -e
-set -o pipefail
 
-echo "🔍 Running Promptfoo LLM security scan..."
+echo "🚀 Running Promptfoo evaluation..."
 
-unset HTTP_PROXY HTTPS_PROXY http_proxy https_proxy
+EVAL_OUTPUT=$(npx promptfoo eval --no-view)
 
-# ❌ OLD — Promptfoo ran without runtime JWT token
-# npx promptfoo eval \
-#   -c ./promptfooconfig.yaml \
-#   --no-cache
+echo "$EVAL_OUTPUT"
 
-# ✅ NEW — Fetch a fresh JWT token before Promptfoo runs
-./scanner/get_jwt_token.sh
+EVAL_ID=$(echo "$EVAL_OUTPUT" | grep -oE 'eval-[a-z0-9\-:T]+' | head -n 1)
 
-# ❌ OLD — blindly source JWT env file
-# source /tmp/jwt.env
-
-# ✅ NEW — fail-fast if token file missing or empty
-if [ ! -f /tmp/jwt.env ]; then
-  echo "❌ JWT env file not found!"
+if [ -z "$EVAL_ID" ]; then
+  echo "❌ Failed to extract Eval ID"
   exit 1
 fi
 
-#source /tmp/jwt.env
-#. /tmp/jwt.env
-set -a
-source /tmp/jwt.env
-set +a
-
-
-if [ -z "$RUNTIME_JWT_TOKEN" ]; then
-  echo "❌ JWT token is empty!"
-  exit 1
-fi
-
-# ✅ NEW — Run Promptfoo with live auth context
-npx promptfoo eval \
-  -c ./promptfooconfig.yaml \
-  --no-cache
-
-./scanner/export_promptfoo.sh
-python3 ./scanner/security_gate.py
-
-echo "✅ Security scan complete"
-
+echo "$EVAL_ID" > eval_id.txt
+echo "📌 Eval ID saved: $EVAL_ID"

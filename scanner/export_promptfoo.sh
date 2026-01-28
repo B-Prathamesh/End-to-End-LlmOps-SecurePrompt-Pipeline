@@ -1,34 +1,20 @@
 #!/bin/bash
 set -e
 
-echo "📤 Exporting latest Promptfoo results..."
-
 REPORT_DIR="reports"
 mkdir -p "$REPORT_DIR"
 
-STATE_FILE=".promptfoo/evalLastWritten"
-
-if [ ! -f "$STATE_FILE" ]; then
-  echo "❌ No eval state file found at $STATE_FILE"
-  echo "👉 Run ./scanner/run_promptfoo.sh first"
+if [ ! -f eval_id.txt ]; then
+  echo "❌ eval_id.txt not found"
   exit 1
 fi
 
-RAW_EVAL_ID=$(cat "$STATE_FILE" | tr -d '\n')
+EVAL_ID=$(cat eval_id.txt)
 
-# 🔧 FIX: keep only first timestamp (your logic already correct)
-EVAL_ID=$(echo "$RAW_EVAL_ID" | awk -F: '{print $1 ":" $2 ":" $3}')
+echo "📤 Exporting Promptfoo results for $EVAL_ID..."
 
-if [ -z "$EVAL_ID" ]; then
-  echo "❌ Eval ID is empty"
-  exit 1
-fi
+npx promptfoo export eval "$EVAL_ID" \
+  --output "$REPORT_DIR/promptfoo-results.json"
 
-echo "📌 Raw eval ID: $RAW_EVAL_ID"
-echo "🧹 Clean eval ID: $EVAL_ID"
-
-# 🔧 FIXED Promptfoo export command
-npx promptfoo export eval "$EVAL_ID" --output "$REPORT_DIR/promptfoo-results.json"
-
-echo "📦 Exported Promptfoo results to $REPORT_DIR/promptfoo-results.json"
+echo "📦 Export completed"
 
