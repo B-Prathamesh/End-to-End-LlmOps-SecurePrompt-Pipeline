@@ -36,7 +36,7 @@ echo "⏳ Waiting for API to be ready..."
 #  echo "⏳ API not ready yet... ($i)"
 #  sleep 2
 #done
-#API_READY=0
+API_READY=0
 
 for i in {1..20}; do
   if curl -sf http://127.0.0.1:$API_PORT/health >/dev/null; then
