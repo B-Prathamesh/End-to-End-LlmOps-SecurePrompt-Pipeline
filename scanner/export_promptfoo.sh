@@ -6,7 +6,7 @@ echo "📤 Exporting latest Promptfoo results..."
 REPORT_DIR="reports"
 mkdir -p "$REPORT_DIR"
 
-STATE_FILE="$HOME/.promptfoo/evalLastWritten"
+STATE_FILE=".promptfoo/evalLastWritten"
 
 if [ ! -f "$STATE_FILE" ]; then
   echo "❌ No eval state file found at $STATE_FILE"
