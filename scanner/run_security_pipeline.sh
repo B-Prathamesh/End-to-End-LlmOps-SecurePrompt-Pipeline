@@ -16,7 +16,7 @@ docker build -t llm-api -f docker/Dockerfile .
 echo "[2] Starting API container..."
 docker rm -f llm-api-container >/dev/null 2>&1 || true
 
-API_PORT=8010
+API_PORT=8000
 
 # ✅ Inject GitHub secrets into container (CI-safe)
 docker run -d -p $API_PORT:8000 \
