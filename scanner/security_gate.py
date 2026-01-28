@@ -2,6 +2,8 @@ import json
 import sys
 from pathlib import Path
 
+GATE_STATUS_FILE = "reports/gate-status.json"
+
 REPORT_FILE = Path("reports/promptfoo-results.json")
 
 if not REPORT_FILE.exists():
@@ -36,8 +38,28 @@ if failures:
     for f in failures:
         print(f"Prompt: {f['prompt']}")
         print(f"  ❌ Fails: {f['fails']}, Errors: {f['errors']}\n")
+    with open(GATE_STATUS_FILE, "w") as f:
+    json.dump(
+        {
+            "status": "fail",
+            "failures": failures
+        },
+        f,
+        indent=2
+    )
+    
     sys.exit(1)
 
+with open(GATE_STATUS_FILE, "w") as f:
+    json.dump(
+        {
+            "status": "pass",
+            "failures": []
+        },
+        f,
+        indent=2
+    )
+    
 print("✅ SECURITY GATE PASSED")
 sys.exit(0)
 
