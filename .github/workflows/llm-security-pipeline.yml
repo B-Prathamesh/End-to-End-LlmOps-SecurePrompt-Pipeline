@@ -54,6 +54,7 @@ jobs:
           chmod +x scanner/run_promptfoo.sh
           chmod +x scanner/export_promptfoo.sh
           chmod +x scanner/run_trivy_scan.sh
+          chmod +x scanner/notify_slack.sh
 
       # 🔥 THIS IS THE MISSING PIECE
       - name: Run full LLM Security Pipeline
